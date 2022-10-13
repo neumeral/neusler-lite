@@ -1,0 +1,14 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+<div class="banner">
+    {% if page.ad_image %}
+    <a href="{{ page.ad_url }}">
+        {% image page.ad_image fill-750x80 format-webp as webp_img %}
+        {% image page.ad_image fill-750x80 as img %}
+        <picture>
+            <source srcset="{{ webp_img.url }}" type="image/webp" >
+            <img src="{{ img }}" alt="">
+        </picture>
+    </a>
+    {% endif %}
+</div>

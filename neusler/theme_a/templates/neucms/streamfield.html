@@ -1,0 +1,57 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailembeds_tags %}
+
+{% for block in page.body %}
+{% if block.block_type == 'image' %}
+<div class="block-{{ block.block_type }}-{{ block.value.float }}">
+    <!-- make use of specific properties of Wagtail 'image' tag -->
+    {% if block.value.size == "small" %}
+    {% image block.value.image width-240 format-webp as webp_img %}
+    {% image block.value.image width-240 as img %}
+    {% elif block.value.size == "medium" %}
+    {% image block.value.image width-480  format-webp as webp_img %}
+    {% image block.value.image width-480 as img %}
+    {% else %}
+    {% image block.value.image width-1200 format-webp as webp_img %}
+    {% image block.value.image width-1200 as img %}
+    {% endif %}
+    <picture>
+        <source srcset="{{ webp_img.url }}" type="image/webp">
+        <img src="{{ img.url }} class="img-fluid"">
+    </picture>
+    {{ block.value.caption }}
+</div>
+{% elif block.block_type == 'video' %}
+<div class="block-{{ block.block_type }}-{{ block.value.float }} block-{{ block.block_type }}-{{ block.value.size }}">
+    {% include_block block.value.video|safe %}
+    {{ block.value.caption }}
+</div>
+{% elif block.block_type == 'ad' %}
+{% if block.value.ad_type == 'google_ad' %}
+<div>
+    {% include 'neuads/adsense/in_article_ad.html' %}
+</div>
+{% endif %}
+{% elif block.block_type == 'tweet' %}
+<div class="block-center">
+    {% include_block block.value.tweet_url|safe %}
+
+</div>
+{% elif block.block_type == 'podcast' %}
+<div clsas="block-center">
+    {% include_block block.value.podcast_url|safe %}
+</div>
+{% elif block.block_type == "html_embeds" %}
+<div class="block-center">
+    {% include_block block.value.embed_html|safe %}
+</div>
+{% elif block.block_type == 'carousal' %}
+{% include 'neucms/carousal.html' %}
+{% elif block.block_type == 'image_gallery' %}
+{% include 'neucms/image_gallery.html' %}
+{% else %}
+<div class="block-{{ block.block_type }}">
+    {% include_block block %}
+</div>
+{% endif %}
+{% endfor %}

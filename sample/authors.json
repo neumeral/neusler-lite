@@ -1,0 +1,22 @@
+[
+  {
+    "model": "neucms.author",
+    "pk": 1,
+    "fields": {
+      "name": "John Doe",
+      "designation": "Special Correspondant",
+      "short_bio": "John Doe is a staff writer covering physics at Quanta Magazine. His articles about advances in the physical sciences both on and off the planet have appeared in Popular Science.",
+      "photo": "author_photos/default_avatar.png"
+    }
+  },
+  {
+    "model": "neucms.author",
+    "pk": 2,
+    "fields": {
+      "name": "Jane Smith",
+      "designation": "Contributing Editor",
+      "short_bio": "Jane Smith lives in Cambridge, Massachusetts. His articles have appeared in numerous magazines, including Discover and Astronomy. He is co-author, most recently, of The Shape of a Life.",
+      "photo": "author_photos/default_avatar.png"
+    }
+  }
+]

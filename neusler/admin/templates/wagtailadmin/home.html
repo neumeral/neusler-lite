@@ -1,0 +1,54 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n static %}
+{% block titletag %}{% trans "Dashboard" %}{% endblock %}
+{% block bodyclass %}homepage{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/home.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/page-editor.css' %}" />
+    <style type='text/css'>
+      .object > .title-wrapper {
+          background-color: #f8f8f8;
+      }
+
+      .object > .title-wrapper::before {
+          background-color: #efefef;
+          color: #888;
+      }
+
+    </style>
+    {{ media.css }}
+{% endblock %}
+
+{% block content %}
+    <header class="merged nice-padding">
+        <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
+
+        <div>
+            <h1>
+              {% block branding_welcome %}
+                {% blocktrans trimmed %}Welcome to {% endblocktrans %}
+                <img class="mb-4" src="{% static 'admin/images/logo.png' %}" alt="" width="130px" />
+              {% endblock %}
+            </h1>
+            <div class="user-name">Logged in as {{ user|user_display_name }}</div>
+        </div>
+    </header>
+
+    {% if panels %}
+      <div class='bg-light'>
+        {% for panel in panels %}
+            {% component panel fallback_render_method=True %}
+        {% endfor %}
+      </div>
+    {% else %}
+        <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
+    {{ media.js }}
+{% endblock %}

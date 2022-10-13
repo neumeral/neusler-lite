@@ -1,0 +1,122 @@
+{% extends "neucms/base.html" %}
+{% load static %}
+{% load cms_tags wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+{% block extra_js %}
+{% include 'neucms/article_actions_js.html' %}
+{% endblock extra_js %}
+
+{% block content %}
+<section class="home ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+
+                {% include "neucms/highlighted.html" %}
+
+                {% get_first page.page_sections.all as top_section %}
+
+                <div class="latest-news">
+                    <h3>{{ top_section.title }}</h3>
+                    <div class="mt-3">
+                        <div class="row">
+                            {% for childpage in top_section.articles %}
+                            <div class="col-md-6 col-sm-6 col-xs-12 article-cards">
+                                {% include "neucms/article_card.html" with page=childpage parent="home" %}
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if page.home_page_ad %}
+                {% include "neucms/home_page_ad.html" with page=page.home_page_ad %}
+                {% endif %}
+
+                {% include "neucms/category_section.html" with page=page %}
+                {% except_first page.page_sections.all as remaining_sections %}
+
+                {% for section in remaining_sections %}
+                <div class="latest-news">
+                    <h3>{{ section.title }}</h3>
+                    <div class="mt-3">
+                        <div class="row">
+                            {% for childpage in section.articles %}
+                            <div class="col-md-6 col-sm-6 col-xs-12 article-cards">
+                                {% include "neucms/article_card.html" with page=childpage parent="home" %}
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+
+            <div class="col-12 col-md-4 sidebar" id="sidebar">
+                <div class="sidebar-title for-tablet">Sidebar</div>
+
+                {% if page.specific.show_popular_articles %}
+                <aside>
+                    <h1 class="aside-title">
+                        Popular
+                        <!-- <a href="#" class="all">See All <i class="ion-ios-arrow-right"></i></a> -->
+                    </h1>
+                    <div class="aside-body">
+
+                        {% for article in page.popular_articles %}
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="{{ article.url }}">
+                                        {% if article.specific.image %}
+                                        {% image article.specific.image fill-80x60 format-webp as webp_img %}
+                                        {% image article.specific.image fill-80x60 as img %}
+                                        <picture>
+                                            <source srcset="{{ webp_img.url }}" type="image/webp">
+                                            <img src="{{ img.url }}" alt="" class="rounded article-list-image">
+                                        </picture>
+                                        {% endif %}
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1>
+                                        <a href="{{ article.url }}">{{ article.title }}</a>
+                                    </h1>
+                                    <div class="detail">
+                                        <div class="category">
+                                            <a href="{{ article.category.url }}">{{ article.category.title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+
+
+                    </div>
+                </aside>
+                {% endif %}
+
+                {% include 'neucms/includes/newsletter.html' %}
+
+                {% include 'neucms/includes/recommended.html' %}
+
+                {% include 'neucms/includes/latest_videos.html' with page=page %}
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% include "neucms/page_section.html" %}
+
+{% endblock %}

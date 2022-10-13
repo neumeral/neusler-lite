@@ -1,0 +1,11 @@
+.content-wrap-alt {
+    padding-inline-end: 200px;
+}
+
+.login {
+    background: #EEE url('/static/admin/images/signup-signin-bkg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+}

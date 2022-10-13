@@ -1,0 +1,109 @@
+{% extends "wagtailadmin/admin_base.html" %}
+
+{% load widget_tweaks %}
+{% load i18n wagtailadmin_tags static %}
+
+{% block branding_title %}Neusler{% endblock %}
+
+{% block titletag %}{% trans "Sign in" %}{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% static 'admin/images/favicon.png' %}" />
+{% endblock %}
+
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link href="{% static 'admin/css/bootstrap_styles.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block furniture %}
+<main class="content-wrap-alt">
+    {% if messages or form.errors %}
+    <div class="messages">
+        <ul>
+            {% if form.errors %}
+            <li class="error">{% blocktrans trimmed %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+            {% endif %}
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% block above_login %}{% endblock %}
+    <div class='row justify-content-center'>
+        <div class='col-md-5 col-10'>
+
+            <div class='login_form card mt-5 shadow rounded-1 p-3'>
+                <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
+                    {% block login_form %}
+                    {% csrf_token %}
+
+                    <div class='text-center mb-4'>
+                        <img class="mb-4" src="{% static 'admin/images/logo.png' %}" alt="" width="100" />
+                    </div>
+
+                    <div class='mb-4'>
+                        <h4 class='h4'>{% block branding_login %}{% trans "Sign in" %}{% endblock %}</h4>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {% render_field form.username class="form-control" placeholder=form.username.label %}
+                        <label>{{ form.username.label }}</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.password class="form-control" placeholder=form.password.label %}
+                        <label>{{ form.password.label }}</label>
+                    </div>
+
+                    {% block extra_fields %}
+                    {% for field_name, field in form.extra_fields %}
+                    <div class="form-floating mb-3">
+
+                        {% render_field field class="form-control" placeholder=field_name %}
+                        {{ field.label_tag }}
+                    </div>
+                    {% endfor %}
+                    {% endblock extra_fields %}
+
+                    <div class="checkbox mb-3">
+                        <label style='width: 100%; font-weight: normal'>
+                            <input name="remember" type="checkbox" value="remember-me"> {% trans "Remember me" %}
+                        </label>
+                    </div>
+                    <div class='mb-2'>&nbsp;</div>
+
+                    {% block submit_buttons %}
+                    <div class='mt-1'>
+                        <button type="submit" class="button button-longrunning w-100 fs-4 py-2"
+                            data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
+                    </div>
+                    {% endblock %}
+
+                    {% endblock %}
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    {% block below_login %}{% endblock %}
+
+</main>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+    $(function () {
+        $('form input[name=username]').trigger('focus');
+    })
+
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{# Only render this template if we have what appears to be a wagtail-seo page #}
+{% if page and page.seo_pagetitle %}
+
+{# Standard metadata #}
+{% block html_seo_base %}
+<title>{% block title %}{{ page.seo_pagetitle }}{% endblock %}</title>
+<link rel="canonical" href="{% block canonical %}{{ page.seo_canonical_url }}{% endblock %}">
+<meta name="description" content="{% block description %}{{ page.seo_description }}{% endblock %}" />
+{% if page.seo_og_type == "article" and page.seo_author %}
+<meta name="author" content="{% block author %}{{ page.seo_author }}{% endblock %}" />
+{% endif %}
+{% endblock %}
+{% block html_seo_extra %}{% endblock %}
+
+{# Open Graph #}
+{% block og_seo_base %}
+{% if settings.wagtailseo.SeoSettings.og_meta %}
+<meta property="og:title" content="{% block og_title %}{{ page.seo_pagetitle }}{% endblock %}" />
+<meta property="og:description" content="{% block og_description %}{{ page.seo_description }}{% endblock %}" />
+<meta property="og:image" content="{% block og_image %}{{ page.seo_image_url }}{% endblock %}" />
+<meta property="og:site_name" content="{% block og_site_name %}{{ page.seo_sitename }}{% endblock %}" />
+<meta property="og:url" content="{% block og_url %}{{ page.seo_canonical_url }}{% endblock %}" />
+<meta property="og:type" content="{% block og_type %}{{ page.seo_og_type }}{% endblock %}" />
+{% if page.seo_og_type == "article" and page.seo_author %}
+<meta property="article:author" content="{% block og_author %}{{ page.seo_author }}{% endblock %}" />
+{% endif %}
+{% if page.seo_og_type == "article" %}
+<meta property="article:published_time" content="{{ page.seo_published_at|date:'c' }}" />
+<meta property="article:modified_time" content="{{ page.last_published_at|date:'c' }}" />
+{% endif %}
+{% endif %}
+{% endblock %}
+{% block og_seo_extra %}{% endblock %}
+
+{# Twitter #}
+{% block twitter_seo_base %}
+{% if settings.wagtailseo.SeoSettings.twitter_meta %}
+<meta name="twitter:card" content="{% block twitter_card %}{{ page.seo_twitter_card_content }}{% endblock %}" />
+<meta name="twitter:title" content="{% block twitter_title %}{{ page.seo_pagetitle }}{% endblock %}">
+<meta name="twitter:image" content="{% block twitter_image %}{{ page.seo_image_url }}{% endblock %}">
+<meta name="twitter:description" content="{% block twitter_description %}{{ page.seo_description }}{% endblock %}">
+<meta name="twitter:site"
+    content="{% block twitter_site %}{{ settings.wagtailseo.SeoSettings.at_twitter_site }}{% endblock %}" />
+{% endif %}
+{% endblock %}
+{% block twitter_seo_extra %}{% endblock %}
+
+{% endif %}

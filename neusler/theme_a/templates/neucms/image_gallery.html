@@ -1,0 +1,25 @@
+{% load static %}
+{% load wagtailimages_tags %}
+
+{% load cms_tags %}
+
+<div class="gg-container">
+    <div class="gg-box row block-center" id="square">
+        {% get_collection_images block.value.collection.id as images %}
+        {% for gallery_image in images %}
+        {% image gallery_image fill-300x200 class="col-md-3" %}
+        {% comment %} <img src="https://picsum.photos/id/237/600/400" class='col-3' /> {% endcomment %}
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{% static "vendor/grid-gallery/grid-gallery.min.js" %}"></script>
+<script>
+
+gridGallery({
+  selector: "#square",
+  layout: "square"
+  gaplength: 10
+});
+
+</script>

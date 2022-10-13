@@ -1,0 +1,22 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        {% for childpage in page.latest_articlepages %}
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="row">
+                    {% ifequal forloop.counter|divisibleby:"2" False %}
+                    {% include "neucms/article_card.html" with page=childpage %}
+                    {% endifequal %}
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="row">
+                    {% ifequal forloop.counter|divisibleby:"2" True %}
+                    {% include "neucms/article_card.html" with page=childpage %}
+                    {% endifequal %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

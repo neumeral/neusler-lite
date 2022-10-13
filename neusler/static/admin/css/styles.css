@@ -1,0 +1,441 @@
+main .content header {
+    background-color: #EEE;
+    margin-bottom: 12px;
+}
+
+main .content header.no-v-padding {
+    margin-bottom: 0;
+}
+
+header h1 {
+    color: #333333;
+}
+
+.sidebar__collapse-toggle {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    margin-right: -14px;
+    background-color: #333;
+    z-index: 100;
+}
+
+.sidebar-sub-menu-panel__footer {
+    display: none;
+}
+
+.sidebar,
+.sidebar-loading {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+    box-shadow: 2px 0 4px #cccccc40;
+}
+
+.sidebar .slim-logo {
+    display: none;
+}
+
+.sidebar .n-logo {
+    display: block;
+}
+
+.sidebar-custom-branding {
+    margin: 0 auto 1em auto;
+    background: #FEFEFE;
+    padding: 1em;
+    text-align: center;
+}
+
+.sidebar.sidebar--slim .sidebar-custom-branding {
+    padding: 1em;
+}
+
+.sidebar.sidebar--slim .n-logo {
+    display: none;
+}
+
+.sidebar.sidebar--slim .slim-logo {
+    display: block;
+}
+
+.sidebar-footer {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+}
+
+.sidebar-sub-menu-panel {
+    background-color: rgb(58 81 105/var(--tw-bg-opacity));
+}
+
+.sidebar-menu-item--active {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+}
+
+.c-page-explorer {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+}
+
+.c-page-explorer__header {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+}
+
+.c-page-explorer__item__link:focus,
+.c-page-explorer__item__link:hover {
+    background-color: rgb(44 62 80/var(--tw-bg-opacity));
+}
+
+.c-page-explorer__item__action:focus,
+.c-page-explorer__item__action:hover {
+    background-color: rgb(44 62 80/var(--tw-bg-opacity));
+}
+
+.w-bg-primary {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+}
+
+.hover\:w-bg-primary-200:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(44 62 80/var(--tw-bg-opacity));
+}
+
+
+.focus\:w-bg-primary-200:focus {
+    --tw-bg-opacity: 1;
+    background-color: rgb(58 81 105/var(--tw-bg-opacity));
+}
+
+.sidebar-loading__inner,
+.sidebar__inner {
+    background-color: rgb(52 73 94/var(--tw-bg-opacity));
+}
+
+.sidebar-custom-branding {
+    margin: 0.5em auto;
+}
+
+.sidebar--slim .sidebar-custom-branding {
+    padding: 20px 0;
+}
+
+.tagfilter .button.button-small {
+    margin-top: 10px;
+}
+
+.bg-light .panel {
+    background-color: #EEEEEE;
+}
+
+.admin-section .section-header {
+    padding: 0.5em 1em;
+    background: #eee;
+}
+
+.admin-section .section-body {
+    padding: 1em 2em;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+/* Object Styles for Forms */
+@media (min-width:50em) {
+    .side-panel-open {
+        overflow-y: auto
+    }
+}
+
+.content .objects {
+    list-style: none;
+    padding: 0;
+}
+
+.object {
+    padding-inline-end: 20px;
+    padding-inline-start: 20px;
+    position: relative
+}
+
+@media screen and (min-width:50em) {
+    .object {
+        padding-inline-end: 50px;
+        padding-inline-start: 50px
+    }
+}
+
+.object:first-child {
+    border: 0
+}
+
+.object.focused {
+    border-color: var(--color-input-focus-border)
+}
+
+.object .field-row,
+.object fieldset {
+    padding-top: 52px
+}
+
+.object fieldset {
+    padding-inline-end: 0;
+    padding-inline-start: 0
+}
+
+.object fieldset .field-row {
+    padding-top: 0
+}
+
+.object .object-help {
+    display: block;
+    margin-bottom: -1em;
+    margin-top: 0;
+    opacity: 1;
+    padding: 1em 1.5% 1em 3em;
+    position: relative;
+    top: 40px;
+    z-index: 1
+}
+
+.object .object-help .icon-help {
+    margin-inline-start: -1.75em
+}
+
+.object:hover .object-help {
+    opacity: 1
+}
+
+.object>.title-wrapper {
+    -webkit-font-smoothing: auto;
+    background: #eee;
+    box-sizing: border-box;
+    color: #200200;
+    font-size: .95em;
+    font-weight: 400;
+    height: 40px;
+    inset-inline-end: 0;
+    inset-inline-start: 0;
+    left: 0;
+    line-height: 1.5em;
+    margin: 0;
+    overflow: hidden;
+    padding: .9em 0 .9em 5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1
+}
+
+.object>.title-wrapper label {
+    color: inherit;
+    display: inline;
+    float: none;
+    font-size: inherit;
+    font-weight: inherit;
+    width: auto
+}
+
+.object>.title-wrapper:before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ccc;
+    color: #fff;
+    content: "";
+    display: block;
+    font-family: wagtail;
+    font-size: 2em;
+    inset-inline-start: 0;
+    left: 0;
+    line-height: 1.8em;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    text-shadow: none;
+    top: 0;
+    width: 50px;
+    z-index: 2
+}
+
+.object.required>.title-wrapper label:after {
+    color: #cd3238;
+    content: "*";
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1em;
+    margin-inline-start: .5em
+}
+
+.object.full fieldset {
+    display: block;
+    float: none
+}
+
+.object.full li {
+    padding: 0
+}
+
+.object.full .error-message {
+    padding-inline-end: 20px;
+    padding-inline-start: 20px;
+    padding-bottom: 2em
+}
+
+@media screen and (min-width:50em) {
+    .object.full .error-message {
+        padding-inline-end: 50px;
+        padding-inline-start: 50px
+    }
+}
+
+.object.full .error,
+.object.full .error input:not([type=submit]),
+.object.full .error textarea {
+    background-color: #fee7e8
+}
+
+.object.block_field {
+    padding-inline-end: 20px;
+    padding-inline-start: 20px
+}
+
+.object.block_field .object-layout_big-part {
+    max-width: 100%
+}
+
+.object.block_field fieldset {
+    max-width: unset;
+    min-width: 0;
+    padding-bottom: 0
+}
+
+.object.block_field .block_field>.field-content {
+    width: 100%
+}
+
+.object.publishing>.title-wrapper:before {
+    content: "";
+    font-size: 1.8rem;
+    line-height: 1.4em;
+    width: 1.4em
+}
+
+.object.privacy>.title-wrapper:before {
+    content: ""
+}
+
+.object .multiple {
+    padding: 4.5em 0 0
+}
+
+.object .multiple fieldset {
+    padding-bottom: 0;
+    padding-top: 0
+}
+
+.object .fields {
+    max-width: 100%;
+    list-style-type: none;
+    padding: 0;
+}
+
+.object .fields .multiple {
+    padding-top: 0
+}
+
+.object .add {
+    padding-top: 1em
+}
+
+.object.empty,
+.object.empty>h3 {
+    border-bottom: 1px solid #fff
+}
+
+.object.empty>h3 {
+    margin: 0
+}
+
+.object.empty .add {
+    cursor: pointer;
+    inset-inline-start: 0;
+    left: 0;
+    margin: 0 0 0 -20px;
+    padding: 0;
+    position: relative;
+    top: 0;
+    width: 3.3em;
+    z-index: 2
+}
+
+body.ready .object.empty .add {
+    transition: background-color .2s ease
+}
+
+.object.empty .add .button {
+    background-color: #fcf2f2;
+    border-radius: 0;
+    font-size: 0;
+    overflow: visible;
+    width: 2em
+}
+
+.object.empty .add .button:before {
+    background-color: #f37e77;
+    font-size: 1.4rem;
+    line-height: 1.8em;
+    padding: 0;
+    position: relative;
+    width: 1.8em
+}
+
+.object.empty .add .button:hover:before {
+    background-color: #f16860
+}
+
+.object.empty .multiple {
+    padding: 0
+}
+
+.object.collapsible {
+    min-height: 41px
+}
+
+.object.collapsible .title-wrapper:before {
+    content: "";
+    cursor: pointer
+}
+
+.object.collapsible.collapsed .title-wrapper:before {
+    content: ""
+}
+
+.full input:not([type=submit]),
+.full textarea {
+    border-radius: 0;
+    font-size: 1.2em;
+    line-height: 1.6em;
+    padding-inline-end: 20px;
+    padding-inline-start: 20px;
+    padding-bottom: 1.5em;
+    padding-top: 1.5em
+}
+
+@media screen and (min-width:50em) {
+
+    .full input:not([type=submit]),
+    .full textarea {
+        padding-inline-end: 50px;
+        padding-inline-start: 50px
+    }
+}
+
+/* Report Filters */
+.report__filters {
+    padding: 0.5em 1.5em;
+    background: #eef5f5;
+    border-radius: 8px;
+}
+
+.report__filters button.button-longrunning {
+    background-color: #005255;
+    border: 1px solid #005255;
+}

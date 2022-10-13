@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/userbar/item_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block item_content %}
+<a href="{% url 'wagtailadmin_home' %}" target="_parent" class="wagtail-userbar-link" role="menuitem">
+    {% icon name="cogs" class_name="wagtail-action-icon" %}
+    {% trans 'Open admin panel' %}
+</a>
+{% endblock %}

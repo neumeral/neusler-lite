@@ -1,0 +1,27 @@
+wagtail==3.0.3
+wagtail-localize
+django==3.2.15
+Pillow==9.1.1
+psycopg2-binary
+dj-database-url
+python-decouple
+django-countries
+django-allauth
+django-crispy-forms
+django-extensions
+django-widget-tweaks
+django-comments-xtd
+humanize
+elasticsearch>=7.0.0,<8.0.0
+wagtail-seo==2.2.0
+celery
+redis
+django-celery-results
+
+# For S3 storage of static and media
+django-storages==1.13.1
+boto3==1.24.82
+
+
+# Fix dependabot alert
+oauthlib>=3.2.1

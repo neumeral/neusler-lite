@@ -1,0 +1,9 @@
+{% load wagtailsettings_tags %}
+{% get_settings %}
+
+
+{% if not settings.neuads.GoogleAdsSetting.auto_ads_enable %}
+{% if settings.neuads.GoogleAdsSetting.sidebar_ad_js and settings.neuads.GoogleAdsSetting.sidebar_ad_enable %}
+{{ settings.neuads.GoogleAdsSetting.sidebar_ad_js|safe }}
+{% endif %}
+{% endif %}

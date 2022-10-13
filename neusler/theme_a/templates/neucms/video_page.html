@@ -1,0 +1,95 @@
+{% extends 'neucms/base.html' %}
+
+{% load static %}
+{% load cms_tags %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd static %}
+
+{% block body_class %}template-videoepage{% endblock %}
+
+{% block extra_head %}
+{% include "wagtailseo/meta.html" %}
+{% endblock  %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+{% block extra_js %}
+{% include "neucms/article_page_js.html" %}
+{% endblock extra_js %}
+
+{% block content %}
+{% include "wagtailseo/struct_data.html" %}
+<section class="single home">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8">
+                <article class="article main-article">
+                    <div class="main-video">
+                        {% for block in page.video_url %}
+                        <div class="block-video-center block-video-large">
+                            {% include_block block.value|safe %}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <header class='mt-3'>
+                        <h1 class='h2'>{{ page.title }}</h1>
+                        <ul class="details">
+                            <li>Posted on {{ page.last_published_at }}</li>
+                            <li><a href="{{ page.specific.category.url }}">{{ page.specific.category_title }}</a></li>
+                            <li>By <span>{{ page.author_name }}</span></li>
+                        </ul>
+                    </header>
+
+                    <div class="main">
+                        <p>{{ page.description|richtext }}</p>
+                    </div>
+                    <footer>
+                        <div class="col">
+                            {% if page.tags %}
+                            <ul class="tags">
+                                {% for tag in page.tags.all %}
+                                <li><a href="{% get_tag_link tag.name 'videos' %}">{{ tag.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            {% if liked %}
+                            <a href="#" id="unlike" class="like love active"><i class="ion-android-favorite"></i>
+                                <div>{{ page.liked_users.count }}</div>
+                            </a>
+                            {% else %}
+                            <a href="#" id="like" class="like love"><i class="ion-android-favorite-outline"></i>
+                                <div>{{ page.liked_users.count }}</div>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </footer>
+                </article>
+                <div class="line mt-5">
+                    <div>Comments</div>
+                </div>
+                <div class="mt-4 comment-forms">
+                    {% render_comment_form for page %}
+                </div>
+
+                {% get_comment_count for page as comment_count %}
+                {% if comment_count %}
+                <hr>
+                <div class="mt-4 media-list">
+                    {% render_xtdcomment_tree for page allow_flagging allow_feedback show_feedback %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 sidebar" id="sidebar">
+                {% include "neucms/sidebar.html" %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'neucms/base.html' %}
+
+{% load static %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags wagtailsearchpromotions_tags %}
+
+{% block content %}
+{% get_search_promotions search_query as search_promotions %}
+
+<section class="category first" style="padding-top: 219px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 text-left">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active">Search: {{ search_query }}</li>
+                        </ol>
+                        <h1 class="page-title">Search: {{ search_query }}</h1>
+
+                        {% if search_results or search_promotions %}
+                        <p class="page-subtitle">Showing all results for <i>{{ search_query }}</i></p>
+                        {% else %}
+                        <p class="page-subtitle">No matching results for the query <i>{{ search_query }}</i></p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                
+                {% if search_promotions %}
+                    <div class="line"></div>
+                    <div class="row">
+                        <div class="my-1 col-12 ">
+                            <div class="my-2"><h5>Promoted Results</h5></div>
+                            {% for search_promotion in search_promotions %}
+                            {% include "neucms/article_card.html" with page=search_promotion.page parent="article_index" %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="line"></div>
+                <div class="row">
+                    {% if search_results %}
+                    {% for article in search_results %}
+                    {% include "neucms/article_card.html" with page=article parent="article_index" %}
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-md-12 text-left">
+                        <p>No search results found.</p>
+                    </div>
+                    {% endif %}
+                    {% if search_results.paginator.num_pages > 1 %}
+                    <div class="col-md-12 text-center">
+                        <ul class="pagination">
+                            {% if search_results.has_previous %}
+                            <li class="prev"><a href="?page={{ search_results.previous_page_number }}"><i
+                                        class="ion-ios-arrow-left"></i></a></li>
+                            {% endif %}
+                            {% for page_num in search_results.paginator.page_range %}
+                            <li class="{% if page_num == search_results.number %} active{% endif %}"><a
+                                    href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endfor %}
+                            {% if search_results.has_next %}
+                            <li class="next"><a href="?page={{ search_results.next_page_number }}"><i
+                                        class="ion-ios-arrow-right"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 sidebar">
+                {% include "neucms/sidebar.html" %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

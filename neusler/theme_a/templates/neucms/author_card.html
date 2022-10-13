@@ -1,0 +1,13 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+<div class="author">
+    <figure>
+        <source srcset="{{ author.photo.url }}" type="image/webp">
+        <img src="{{ author.photo.url }}">
+    </figure>
+    <div class="details">
+        <div class="job">{{ author.designation }}</div>
+        <h3 class="name">{{ author.name }}</h3>
+        <p>{{ author.short_bio }}</p>
+    </div>
+</div>

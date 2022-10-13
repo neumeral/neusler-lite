@@ -1,0 +1,63 @@
+{% load static %}
+{% load wagtailcore_tags wagtailuserbar %}
+{% wagtail_site as current_site %}
+
+<header class="primary">
+    <div class="firstbar">
+        <div class="container">
+            <div class="row d-flex align-items-center tw-bg-gray-100 rounded">
+                <div class="col-md-3 col-sm-12">
+                    <div class="">{{ today|date:'l, d F Y'}}</div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <form action="{% url 'search' %}" method="get" class="search" autocomplete="on">
+                        <div class="form-group ">
+                            <div class="input-group">
+                                <input type="text" name="query" class="form-control rounded-left"
+                                    {% if search_query %}value="{{ search_query }}" {% endif %} placeholder="Search...">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary rounded-right"><i
+                                            class="ion-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3 col-sm-12 text-right">
+                    <ul class="nav-icons">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="#">
+                                <div class="small">My Account</div>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'account_signup' %}">
+                                <div class="small">Register</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_login' %}">
+                                <div class="small">Login</div>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <div class="brand">
+                        <a href="/">
+                            <img src="{% static 'images/logo.png' %}" alt="Four Axioms Logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- firstbar -->
+
+    {% include 'neucms/includes/main_menu.html' %}
+
+</header>

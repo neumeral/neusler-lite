@@ -1,0 +1,134 @@
+:root {
+  --bs-primary: #027c5e;
+  --bs-secondary: #ffa881;
+  --sidebar-main: #34495e;
+  --sidebar-lighter: #FDFDFD;
+  --sidebar-darker: #F6F6F6;
+  --sidebar-darker-200: #F2F2F2;
+  --sidebar-darker-300: #EAEAEA;
+  --default-text: #333;
+  --text-darker: #111;
+  --text-lighter: #666;
+}
+
+
+/* Editor Styles */
+
+.object > .title-wrapper {
+    background-color: #f8f8f8;
+}
+
+.object > .title-wrapper::before {
+    background-color: #efefef;
+    color: #888;
+}
+
+.wagtail-userbar-trigger {
+    background-color: red;
+}
+
+
+/* Admin Styles */
+
+.sidebar__collapse-toggle {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    margin-right: -14px;
+    background-color: #333;
+    z-index: 100;
+}
+
+.sidebar,
+.sidebar-loading {
+    background-color: var(--sidebar-main);
+    color: var(--default-text);
+}
+
+.sidebar-footer {
+    background-color: var(--sidebar-main);;
+}
+
+.sidebar-sub-menu-panel {
+    background-color: var(--sidebar-darker);
+}
+
+
+.sidebar-menu-item__link {
+    color: var(--default-text);
+}
+
+.sidebar-menu-item__link:focus,
+.sidebar-menu-item__link:hover {
+    color: var(--default-text);
+    background-color: var(--sidebar-darker-200);;
+    text-shadow: none;
+}
+
+.sidebar-main-menu .icon--submenu-header{
+
+}
+
+.sidebar-menu-item--active {
+    background-color: var(--sidebar-darker-200);
+    color: var(--default-text);
+    text-shadow: none;
+}
+
+.sidebar-sub-menu-panel > h2 {
+    color: var(--default-text);
+}
+
+.c-page-explorer {
+    background-color: var(--sidebar-main);;
+}
+
+.c-page-explorer__header {
+    background-color: var(--sidebar-main);;
+}
+
+.c-page-explorer__item__link:focus,
+.c-page-explorer__item__link:hover {
+    background-color: var(--sidebar-darker-200);
+}
+
+.c-page-explorer__item__action:focus,
+.c-page-explorer__item__action:hover {
+    background-color: var(--sidebar-darker-200);
+}
+
+.w-bg-primary {
+    background-color: var(--sidebar-main);;
+}
+
+.hover\:w-bg-primary-200:hover {
+    --tw-bg-opacity: 1;
+    background-color: var(--text-lighter);
+}
+
+.focus\:w-bg-primary-200:focus {
+    --tw-bg-opacity: 1;
+    background-color: var(--text-lighter);
+}
+
+.sidebar-loading__inner,
+.sidebar__inner {
+    background-color: var(--sidebar-main);;
+}
+
+.sidebar-panel--visible {
+  box-shadow: 2px 0 2px #88888820;
+  visibility: visible;
+}
+
+.sidebar-custom-branding {
+    margin: 0.5em auto;
+}
+
+.sidebar--slim .sidebar-custom-branding {
+    padding: 20px 0;
+}
+
+.tagfilter .button.button-small {
+    margin-top: 10px;
+}

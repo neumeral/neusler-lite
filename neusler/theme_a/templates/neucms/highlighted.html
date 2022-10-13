@@ -1,0 +1,25 @@
+{% load cms_tags wagtailimages_tags static %}
+
+{% get_snippet "featured" as navigation %}
+
+{% if navigation %}
+<div class="owl-carousel owl-theme slide" id="featured">
+    {% for item in navigation %}
+    <div class="item">
+        <article class="featured">
+            <div class="overlay"></div>
+            {% image item.page.specific.image fill-960x720 as item_image %}
+            <figure
+                style="background-image: url('{{ item_image.url }}'); background-size: cover; background-repeat: no-repeat; background-position: center center; background-color: #888;">
+
+            </figure>
+            <div class="details">
+                <div class="category"><a href="{{ item.page.category.url }}">{{ item.page.category }}</a></div>
+                <h1><a href="{{ item.url }}">{{ item.page.title }}</a></h1>
+                <div class="time">{{ item.page.last_published_at|date:"d M, Y" }}</div>
+            </div>
+        </article>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,132 @@
+{% extends 'neucms/base.html' %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% load cms_tags %}
+{% block content %}
+<section class="single home">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8">
+                <article class="article main-article">
+                    <header>
+                        <h1>{{ page.title }}</h1>
+                        <h3>{{ page.thank_you_text|richtext }}</h3>
+                    </header>
+                    <div class="main">
+
+                    </div>
+                    <footer>
+                        <div class="col">
+
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </footer>
+                </article>
+
+            </div>
+
+            <div class="col-12 col-md-4 sidebar" id="sidebar">
+                {% if recent_articles %}
+                <aside>
+                    <h1 class="aside-title">Recent Articles</h1>
+                    <div class="aside-body">
+                        {% get_first recent_articles as latest_article %}
+                        <article class="article-fw">
+                            <div class="inner">
+                                <figure>
+                                    <a href="{{ latest_article.url }}">
+                                        {% image latest_article.specific.image fill-480x360 %}
+                                    </a>
+                                </figure>
+                                <div class="details">
+                                    <h1><a href="{{ latest_article.url }}">{{ latest_article.title }}</a></h1>
+                                    <div>
+                                        {{ latest_article.summary|richtext }}
+                                    </div>
+                                    <div class="detail">
+                                        <div class="category"><a
+                                                href="{{ latest_article.category.url }}">{{ latest_article.specific.category_title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <div class="line"></div>
+                        {% except_first recent_articles as other_articles %}
+
+                        {% for article in other_articles %}
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="{{ article.url }}">
+                                        {% image article.specific.image fill-80x60 %}
+                                    </a>
+                                </figure>
+                                <div class="padding">
+                                    <h1><a href="{{ article.url }}">{{ article.title }}</a></h1>
+                                    <div class="detail">
+                                        <div class="category"><a
+                                                href="{{ article.category.url }}">{{ article.specific.category_title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </aside>
+                {% endif %}
+
+
+                {% if page.specific.category.category_ad %}
+                <aside>
+                    {% include "neucms/category_ad.html" with page=page.specific.category.category_ad %}
+                </aside>
+                {% endif %}
+
+
+                {% if recent_videos %}
+                <aside>
+                    <h1 class="aside-title">Recent Videos</h1>
+                    <div class="aside-body video-list">
+                        {% for video in recent_videos %}
+
+                        <article class="article-mini">
+                            <div class="inner">
+                                <figure>
+                                    <a href="{{ video.url }}">
+                                        {% if video.thumbnail_image %}
+                                        {% image video.specific.thumbnail_image fill-480x360 %}
+                                        {% else %}
+                                        <img src="{{ video.thumbnail_url }}" alt="">
+                                        {% endif %}
+
+                                    </a>
+                                </figure>
+
+                                <div class="padding">
+                                    <h1><a href="{{ video.url }}">{{ video.title }}</a></h1>
+                                    <div class="detail">
+                                        <div class="category"><a
+                                                href="{{ video.category.url }}">{{ video.specific.category_title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </aside>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

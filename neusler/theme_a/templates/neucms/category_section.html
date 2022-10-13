@@ -1,0 +1,33 @@
+{% load  wagtailcore_tags wagtailimages_tags static %}
+
+
+<div class="row">
+    {% for section in page.category_sections.all %}
+    <div class="col-md-6 col-sm-6">
+        <h1 class="title-col">
+            {{ section.link_category_page.title }}
+        </h1>
+        <div class="body-col vertical-slider" data-max="4" data-nav="#hot-news-nav" data-item="article">
+            {% for article in section.articles %}
+            <article class="article-mini">
+                <div class="inner">
+                    <figure>
+                        <a href="{{ article.url }}">
+                            {% if article.specific.image %}
+                            {% image article.specific.image fill-80x60 %}
+                            {% endif %}
+                        </a>
+                    </figure>
+                    <div class="padding">
+                        <h1><a href="{{ article.url }}">{{ article.title }}</a></h1>
+                        <div class="detail">
+                            <div class="category"><a href="{{ article.category.url }}">{{ article.category }}</a></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

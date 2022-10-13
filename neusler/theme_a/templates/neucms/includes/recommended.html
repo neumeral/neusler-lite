@@ -1,0 +1,86 @@
+{% load wagtailcore_tags wagtailimages_tags static cms_tags %}
+
+{% get_snippet "recommended" as recommended_articles %}
+
+<aside>
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        {% if recommended_articles %}
+        <li class="active">
+            <a href="#recomended" aria-controls="recomended" role="tab" data-toggle="tab">
+                <i class="ion-android-star-outline"></i> Recommended
+            </a>
+        </li>
+        {% endif %}
+        {% if page.latest_comments %}
+        <li>
+            <a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">
+                <i class="ion-ios-chatboxes-outline"></i> Comments
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    <div class="tab-content">
+        {% if recommended_articles %}
+        <div class="tab-pane active" id="recomended">
+            {% for article in recommended_articles %}
+
+            <article class="article-mini">
+                <div class="inner">
+                    <figure>
+                        <a href="{{ article.page.url }}">
+                            {% if article.page.specific.image %}
+                            {% image article.specific.image fill-80x60 format-webp as webp_img%}
+                            {% image article.specific.image fill-80x60 as img %}
+                            <picture>
+                                <source srcset="{{ webp_img.url }}" type="image/webp">
+                                <img src="{{ img.url }}">
+                            </picture>
+                            {% endif %}
+                        </a>
+                    </figure>
+                    <div class="padding">
+                        <h1><a href="{{  article.page.url }}">{{ article.page.title }}</a>
+                        </h1>
+                        <div class="detail">
+                            <div class="category"><a
+                                    href="{{article.page.category.url}}">{{ article.page.category.title }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if page.latest_comments %}
+        <div class="tab-pane comments" id="comments">
+            <div class="comment-list sm">
+                {% for comment in page.latest_comments %}
+                <a href="{{ comment.page.url }}">
+                    <div class="item">
+                        <div class="user">
+                            <figure>
+                                {% if comment.user.avatar %}
+                                <img src="{{ comment.user.avatar.url }}">
+                                {% endif %}
+                                {% comment %} <img src="images/img01.jpg" alt="User Picture">
+                                {% endcomment %}
+                            </figure>
+                            <div class="details">
+                                <h5 class="name">{{ comment.user.display_name }}</h5>
+                                {% humanize_time comment.submit_date as submit_time %}
+                                <div class="time">{{ submit_time }}</div>
+                                <div class="description">
+                                    {{ comment.comment }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</aside>

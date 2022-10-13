@@ -1,0 +1,70 @@
+{% extends 'neucms/base.html' %}
+
+{% load static %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+<section class="first" style="padding-top: 219px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 text-left">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% if 'tag' in request.GET %}
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Tags</a></li>
+                            <li class="active">{{ request.GET.tag }}</li>
+                        </ol>
+                        <h1 class="page-title">Tag: {{ request.GET.tag }}</h1>
+                        <p class="page-subtitle">Showing all videos with tag {{ request.GET.tag }}</p>
+                        {% else %}
+
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li class="active">Videos</li>
+                        </ol>
+                        <h1 class="page-title">Videos</h1>
+                        <p class="page-subtitle">View the latest videos from our media publishing room.</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="line"></div>
+
+                <div class="row">
+                    {% for video in videos %}
+                    {% include "neucms/article_card.html" with page=video parent="article_index" %}
+                    {% endfor %}
+
+                    {% if videos.paginator.num_pages > 1 %}
+                    <div class="col-md-12 text-center">
+                        <ul class="pagination">
+                            {% if videos.has_previous %}
+                            <li class="prev"><a href="?page={{ videos.previous_page_number }}"><i
+                                        class="ion-ios-arrow-left"></i></a></li>
+                            {% endif %}
+                            {% for page_num in videos.paginator.page_range %}
+                            <li class="{% if page_num == videos.number %} active{% endif %}"><a
+                                    href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endfor %}
+                            {% if videos.has_next %}
+                            <li class="next"><a href="?page={{ videos.next_page_number }}"><i
+                                        class="ion-ios-arrow-right"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 sidebar">
+                {% include "neucms/sidebar.html" %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

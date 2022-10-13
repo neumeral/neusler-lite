@@ -1,0 +1,64 @@
+<script>
+
+function getCommentData(){
+    var articleId = {{ page.id }};
+    var baseUrl = "{% url 'like_unlike_page' %}";
+    $.ajax({
+        type: "GET",
+        url: baseUrl + "?page=" + articleId,
+
+        success: function (data){
+            var displayEl = $("article.main-article .like.love");
+            if(data.page_is_liked){
+                displayEl.addClass('active');
+                $(displayEl).find('i').removeClass('ion-android-favorite-outline').addClass('ion-android-favorite');
+            }
+
+            $(displayEl).find('div.like-count').html(data.page_likes);
+        },
+        error: function (xhr, status, error) {
+            console.log('Error reponse');
+        }
+    });
+}
+
+$(document).ready(function() {
+    getCommentData();
+
+    $(".like").click(function (event) {
+        event.preventDefault();
+
+        {% if user.is_authenticated %}
+
+        var data = {
+            "page_id": {{page.id}},
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'like_unlike_page' %}",
+            data: data,
+            success: function (response, status) {
+                var displayEl = $("article.main-article .like.love");
+                if (response.page_is_liked){
+                    displayEl.addClass("active")
+                    $(displayEl).find('i').removeClass('ion-android-favorite-outline').addClass('ion-android-favorite');
+                } else if (!response.page_is_liked){
+                    displayEl.removeClass("active")
+                    $(displayEl).find('i').removeClass('ion-android-favorite').addClass('ion-android-favorite-outline');
+                }
+                $(displayEl).find('.like-count').html(response.page_likes)
+            },
+            error: function (xhr, status, error) {}
+        });
+
+        {% else %}
+
+        var login_url = "{% url 'account_login' %}?next={{page.rel_url}}" ;
+        window.location = login_url ;
+
+        {% endif %}
+    });
+});
+</script>

@@ -1,0 +1,31 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "100"
+    ],
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "python.sortImports.args": [
+        "--lines-between-types",
+        "1"
+    ],
+    "editor.formatOnSave": true,
+    "[html]": {
+        "editor.formatOnSave": false
+    },
+    "[django-html]": {
+        "editor.formatOnSave": false
+    },
+    "html.format.wrapLineLength": 0,
+    "html.format.wrapAttributes": "aligned-multiple",
+    "html.format.indentHandlebars": true,
+    "html.format.preserveNewLines": false,
+    "git.ignoreLimitWarning": true
+}

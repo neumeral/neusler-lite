@@ -1,0 +1,94 @@
+{% extends 'neuaccounts/layouts/base.html' %}
+
+{% load static %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load comments %}
+{% load comments_xtd %}
+
+{% block content %}
+
+<section class="first" style="padding-top: 219px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 text-left">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <ol class="breadcrumb">
+                            <li><a href="#">My Account</a></li>
+                            <li class="active">My Comments</li>
+                        </ol>
+                        <h1 class="page-title">My Comments</h1>
+                        <p class="page-subtitle">Showing all comments with the post they are commented on.</p>
+
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="row">
+
+                    {% for comment in page_obj %}
+                    <div class="media">
+                        <a name="c{{ comment.id }}"></a>
+
+                        <div class="media-body">
+                            <div class="xtdcomment tw-bg-gray-50">
+                                <div class="comment-avatar">
+                                    {% if comment.user.avatar %}
+                                    <img src="{{ comment.user.avatar.url }}" alt="" width=48 height=48
+                                        class="profile-image-thumbnail">
+                                    {% endif %}
+                                </div>
+                                <h6 class="mb-1 mt-1 small d-flex">
+                                    <div class="mr-auto">
+                                        {{ comment.submit_date }}&nbsp;-&nbsp;{% if comment.url and not comment.is_removed %}<a
+                                            href="{{ comment.url }}"
+                                            target="_new">{% endif %}{{ comment.name }}{% if comment.url %}</a>{% endif %}&nbsp;&nbsp;
+                                    </div>
+                                </h6>
+                                {% if comment.is_removed %}
+                                <p
+                                    class="my-3 text-muted{% if not allow_feedback and not comment.allow_thread %} pb-3{% endif %}">
+                                    <em>{% trans "This comment has been removed." %}</em></p>
+                                {% else %}
+                                <div
+                                    class="my-3 content{% if not allow_feedback and not comment.allow_thread %} pb-3{% endif %}">
+                                    {% include "includes/django_comments_xtd/comment_content.html" with content=comment.comment %}
+                                </div>
+                                {% endif %}
+                                <p>Posted on the page <a href="{{ comment.page.specific.url }}">
+                                        {{ comment.page.specific.title }}</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    {% if paginator.num_pages > 1 %}
+                    <div class="col-md-12 text-center">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li class="prev"><a href="?page={{ page_obj.previous_page_number }}"><i
+                                        class="ion-ios-arrow-left"></i></a></li>
+                            {% endif %}
+                            {% for page_num in page_obj.paginator.page_range %}
+                            <li class="{% if page_num == page_obj.number %} active{% endif %}"><a
+                                    href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li class="next"><a href="?page={{ page_obj.next_page_number }}"><i
+                                        class="ion-ios-arrow-right"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 sidebar">
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

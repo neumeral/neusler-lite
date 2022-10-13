@@ -1,0 +1,12 @@
+.object > .title-wrapper {
+    background-color: #f8f8f8;
+}
+
+.object > .title-wrapper::before {
+    background-color: #efefef;
+    color: #888;
+}
+
+.wagtail-userbar-trigger {
+    background-color: red;
+}

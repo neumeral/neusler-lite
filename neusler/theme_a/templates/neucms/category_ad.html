@@ -1,0 +1,15 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+<div class="aside-body">
+    <figure class="ads">
+        <a href="{{ page.ad_url }}">
+            {% image page.ad_image fill-350x300 format-webp as webp_img %}
+            {% image page.ad_image fill-350x300 as img %}
+            <picture>
+                <source srcset="{{ webp_img.url }}" type="image/webp" >
+                <img src="{{ img }}" alt="">
+            </picture>
+        </a>
+        <figcaption>Advertisement</figcaption>
+    </figure>
+</div>

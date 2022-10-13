@@ -1,0 +1,43 @@
+{% load wagtailcore_tags wagtailimages_tags static cms_tags %}
+
+{% if page.latest_videos %}
+<aside>
+    <h1 class="aside-title">Latest Videos
+        <div class="carousel-nav" id="video-list-nav">
+            <div class="prev"><i class="ion-ios-arrow-left"></i></div>
+            <div class="next"><i class="ion-ios-arrow-right"></i></div>
+        </div>
+    </h1>
+    <div class="aside-body ">
+
+        <ul class="video-list" data-youtube='"carousel":true, "nav": "#video-list-nav"'>
+            {% for video in page.latest_videos %}
+
+            <li class='single-video my-2'>
+                <a class='d-inline-block' href={{ video.url }}>
+                    <figure>
+                        {% if video.thumbnail_image %}
+                        {% image video.specific.thumbnail_image fill-1000x500 %}
+                        {% else %}
+                        <source srcset="{{ video.thumbnail_url }}" type="image/webp">
+                        <img src="{{ video.thumbnail_url }}" alt="">
+                        {% endif %}
+
+                        <div class="play"><i class="ion-play"></i></div>
+                    </figure>
+                    <h4> <a href="{{video.url}}">{{video.title}}</a></h4>
+                    <div class="detail">
+                        <div class="category">
+                            <a class='small' href="{{ video.category.url }}">{{video.category}}</a>
+                        </div>
+                        <div class="time">{{ video.last_published_at }}</div>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+
+
+        </ul>
+    </div>
+</aside>
+{% endif %}

@@ -1,0 +1,86 @@
+{% extends 'neuaccounts/layouts/base.html' %}
+
+{% load i18n %}
+{% load wagtailcore_tags %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+{% wagtail_site as current_site %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+<section class="login first grey mt-4">
+    <div class="container">
+        <div class="box-wrapper">
+            <div class="box box-border">
+                <div class="box-body">
+                    <h4>{% trans "Login" %}</h4>
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+
+                        <div class="form-group text-right">
+                            <button type='submit' class="btn btn-primary btn-block">{% trans "Login" %}</button>
+                        </div>
+
+                    </form>
+                    <div class="form-group text-center">
+                        <div class='my-2'>
+                            <a class="" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                        </div>
+
+                        <span class="text-muted">{% blocktrans %}Don't have an account?{% endblocktrans %}</span>
+                        <a href="{% url 'account_signup' %}">{% blocktrans %}Create
+                            one{% endblocktrans %}</a>
+                    </div>
+
+
+                    <div class="title-line">{% trans 'or' %}</div>
+
+                    {% get_providers as socialaccount_providers %}
+
+                    {% if socialaccount_providers %}
+                    <p>{% blocktrans with current_site.site_name as site_name %}Please sign in with one
+                        of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+                        for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+                    <div class="socialaccount_ballot">
+
+                        <div class="socialaccount_providers">
+                            {% for provider in socialaccount_providers %}
+                            {% if provider.id == "openid" %}
+                            {% for brand in provider.get_brands %}
+                            <div>
+
+                                <a title="{{brand.name}}" class="socialaccount_provider {{provider.id}} {{brand.id}}"
+                                    href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">{{brand.name}}</a>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <div class='mb-2'>
+                                <a title="{{provider.name}}"
+                                    class="btn btn-social btn-block {{provider.name}} socialaccount_provider {{provider.id}}"
+                                    href="{% provider_login_url provider.id process= scope=scope auth_params=auth_params %}">
+                                    <i class="ion-social-{{provider.name|lower}}"></i>
+                                    Login with {{provider.name}}
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+
+                    {% include "socialaccount/snippets/login_extra.html" %}
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

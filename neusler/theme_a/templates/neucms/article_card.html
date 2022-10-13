@@ -1,0 +1,104 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+{% if parent == "home" %}
+<article class="article articlecard" id="{{ page.id }}" data-pageid="{{ page.id }}">
+    <div class="inner">
+        <figure>
+            <a href="{{ page.url }}">
+                {% if page.specific.image %}
+                {% image page.specific.image fill-400x300 format-webp as webp_img %}
+                {% image page.specific.image fill-400x300 as img %}
+                <picture>
+                    <source srcset="{{ webp_img.url }}" type="image/webp">
+                    <img src="{{ img.url }}" alt="">
+                </picture>
+                {% endif %}
+            </a>
+        </figure>
+        <div class="padding">
+            <div class='subdetails-first'>
+                <div class="detail">
+                    <div class="category"><a href="{{page.category.url}}">{{ page.category.title }}</a></div>
+                </div>
+                <h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
+            </div>
+            <div class='subdetails'>
+                <p>{{ page.specific.summary|striptags|truncatechars:150|safe }} </p>
+                <footer class="like-footer">
+                    <a href="#" disabled="disabled" class="love"><i class="ion-android-favorite-outline"></i>
+                        <div class="like-count"></div>
+                    </a>
+                    <a class="btn btn-primary more" href="{{ page.url }}">
+                        <div>More</div>
+                        <div><i class="ion-ios-arrow-thin-right"></i></div>
+                    </a>
+                </footer>
+            </div>
+        </div>
+    </div>
+</article>
+
+{% elif parent == "article_index" %}
+<article class="article articlecard col-md-12 article-list mb-4 tw-bg-gray-50 p-3 rounded" id="{{ page.id }}" data-pageid="{{ page.id }}">
+    <div class="inner row">
+        <div class="col-sm-12 col-md-4">
+
+            <a href="{{ page.url }}" class='d-inline-block'>
+                {% if page.specific.image %}
+                {% image page.specific.image fill-480x360 format-webp as webp_img %}
+                {% image page.specific.image fill-480x360 as img %}
+                <picture>
+                    <source srcset="{{ webp_img.url }}" type="image/webp">
+                    <img src="{{ img.url }}" alt="" class="rounded article-list-image">
+                </picture>
+
+                {% elif page.specific.video_url %}
+
+                <figure class='video-thumbnail'>
+                    {% if page.specific.thumbnail_image %}
+                    {% image page.specific.thumbnail_image fill-480x360 class="article-list-image" %}
+                    {% else %}
+                    <picture>
+                        <source srcset="{{ page.specific.thumbnail_url }}" type="image/webp">
+                        <img src="{{ page.specific.thumbnail_url }}" class="article-list-image">
+                    </picture>
+                    {% endif %}
+                    <div class="play"><i class="ion-play"></i></div>
+                </figure>
+
+                {% endif %}
+            </a>
+
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <div class="details">
+                <div class="detail">
+                    <div class="category">
+                        <a href="">{{ page.category.title }}</a>
+                    </div>
+                </div>
+                <h1><a href="{{ page.url }}">{{ page.title }}</a>
+                </h1>
+                {% if page.specific.video_url %}
+                <div>
+                    {{ page.specific.description|striptags|safe }}
+                </div>
+                {% else %}
+                <div>
+                    {{ page.specific.summary|striptags|safe }}
+                </div>
+                {% endif %}
+
+                <footer class="like-footer">
+                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
+                        <div class="like-count"></div>
+                    </a>
+                    <a class="btn btn-primary more" href="{{ page.url }}">
+                        <div>More</div>
+                        <div><i class="ion-ios-arrow-thin-right"></i></div>
+                    </a>
+                </footer>
+            </div>
+        </div>
+    </div>
+</article>
+{% endif %}

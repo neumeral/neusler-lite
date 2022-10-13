@@ -1,0 +1,60 @@
+<script>
+    function elementInViewport(element) {
+        var bounding = element.getBoundingClientRect();
+        var myElementHeight = element.offsetHeight;
+        var myElementWidth = element.offsetWidth;
+
+        if (bounding.top >= -myElementHeight
+            && bounding.left >= -myElementWidth
+            && bounding.right <= (window.innerWidth || document.documentElement.clientWidth) + myElementWidth
+            && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) + myElementHeight) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getCommentData(articleElement){
+        var articleId = articleElement.getAttribute('data-pageid');
+        var baseUrl = '{% url 'like_unlike_page' %}';
+        if(articleId){
+            $.ajax({
+                type: "GET",
+                url: baseUrl + "?page=" + articleId,
+
+                success: function (data) {
+                    responseJson = data;
+                    articleElement.setAttribute('data-likes', responseJson.page_likes);
+
+                    var objectSelector = "article.articlecard#" + articleId;
+                    var displayEl = $(objectSelector + " .like-footer .love");
+                    if(responseJson.page_is_liked){
+                        displayEl.addClass('active');
+                        $(displayEl).find('i').removeClass('ion-android-favorite-outline').addClass('ion-android-favorite');
+                    }
+
+                    $(displayEl).find('div.like-count').html(responseJson.page_likes);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error reponse')
+                }
+            });
+        }
+    }
+
+    function getCommentsOfArticles() {
+        var articles = document.querySelectorAll("article.articlecard");
+        for (const article of articles) {
+            if(!article.getAttribute('data-likes') && elementInViewport(article)){
+               getCommentData(article);
+            }
+
+        }
+    }
+
+    $(document).ready(getCommentsOfArticles);
+
+    $(window).scroll(getCommentsOfArticles);
+
+</script>

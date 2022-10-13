@@ -1,0 +1,29 @@
+{% extends 'neuaccounts/layouts/base.html' %}
+
+{% load i18n %}
+{% load wagtailcore_tags %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+{% wagtail_site as current_site %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block content %}
+<section class="login first grey mt-4">
+    <div class="container">
+        <div><a href="{% url "account_profile" %}"><button type="button">Edit</button></a></div>
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <h1>Profile</h1>
+                <div><img src="{{ user.avatar.url }}" alt=""></div>
+                <div>Display Name: {{ user.display_name }}</div>
+                <div>Full Name: {{ user.full_name }}</div>
+                <div>Email: {{  user.email }}</div>
+                <div>Date of Birth: {{ user.date_of_birth }}</div>
+                <div>City: {{ user.city }}</div>
+                <div>Country: {{ user.country }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

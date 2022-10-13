@@ -1,0 +1,40 @@
+{% extends 'neucms/base.html' %}
+
+{% load static %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags widget_tweaks static %}
+
+{% block body_class %}template-articleage{% endblock %}
+
+{% block extra_head %}
+{% include "wagtailseo/meta.html" %}
+{% endblock  %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+
+<section class="single home">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-8">
+                <article class="article main-article">
+                    <header>
+                        <h1>{{ page.title }}</h1>
+                    </header>
+                    <div class="main">
+                        <div class='article-summary'>
+                            {{ page.summary|richtext }}
+                        </div>
+                        {% if page.body %}
+                        {%  include "neucms/streamfield.html" %}
+                        {% endif %}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

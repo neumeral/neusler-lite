@@ -1,0 +1,7 @@
+{% load wagtailsettings_tags %}
+{% get_settings %}
+
+
+{% if settings.neuads.GoogleAdsSetting.auto_ads_js and settings.neuads.GoogleAdsSetting.auto_ads_enable %}
+{{ settings.neuads.GoogleAdsSetting.auto_ads_js|safe }}
+{% endif %}

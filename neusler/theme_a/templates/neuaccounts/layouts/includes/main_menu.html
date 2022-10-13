@@ -1,0 +1,142 @@
+{% load cms_tags wagtailimages_tags static %}
+
+{% get_menu "main" request.user.is_authenticated as navigation %}
+
+<nav class="menu">
+    <div class="container">
+        <div class="brand">
+            <a href="#">
+                <img src="{% static 'images/logo.png' %}" alt="Four Axioms Logo">
+            </a>
+        </div>
+        <div class="mobile-toggle">
+            <a href="#" data-toggle="menu" data-target="#menu-list"><i class="ion-navicon-round"></i></a>
+        </div>
+        <div class="mobile-toggle">
+            <a href="#" data-toggle="sidebar" data-target="#sidebar"><i class="ion-ios-arrow-left"></i></a>
+        </div>
+        <div id="menu-list" class="text-center d-flex justify-content-center">
+            <ul class="nav-list">
+                <li class="for-tablet nav-title"><a>Menu</a></li>
+                <li class="for-tablet"><a href="#">Login</a></li>
+                <li class="for-tablet"><a href="#">Register</a></li>
+
+                <li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">News Blurb<i
+                            class="ion-ios-arrow-right"></i>
+                        <div class="badge badge-secondary">new</div>
+                    </a>
+                    <div class="dropdown-menu megamenu">
+                        <div class="megamenu-inner">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2 class="megamenu-title">Trending</h2>
+                                        </div>
+                                    </div>
+                                    <ul class="vertical-menu">
+                                        {% get_news_blurb_trending as trending %}
+                                        {% for article in trending %}
+                                        <li style="list-style:none;">
+                                                <div class="px-3">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12">
+                                                        <div class="px-3 py-2 tw-bg-gray-100 mb-2 rounded"><a class='h5' href="{{  article.url }}">{{ article.title }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2 class="megamenu-title">Featured Posts</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% get_news_blurb "featured" as featured %}
+                                        {% for item in featured %}
+                                        <article class="article col-md-6 mini">
+                                            <div class="inner">
+                                                <figure>
+                                                    <a href="{{ item.url }}">
+                                                        {% if item.page.specific.image %}
+                                                        {% image item.page.specific.image fill-400x300 %}
+                                                        {% endif %}
+                                                    </a>
+                                                </figure>
+                                                <div class="padding">
+                                                    <div class="detail">
+                                                        <div class="time">{{  item.page.last_published_at }}</div>
+                                                        <div class="category"><a href="{{ item.page.category.url }}">
+                                                                {{ item.page.category }}</a>
+                                                        </div>
+                                                    </div>
+                                                    <h2><a href="item.url">{{ item.page.title }}</a></h2>
+                                                </div>
+                                            </div>
+                                        </article>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% for item in navigation %}
+                {% get_menu item.slug request.user.is_authenticated as submenu %}
+                <li class="{% if submenu %}dropdown magz-dropdown {% endif %}"><a href="{{ item.url }}">
+                        {% if item.icon %}
+                        {% image item.icon fill-30x30 class="image-menu" %}
+                        {% else %}
+                        {{ item.title }}
+                        {% endif %}
+                        {% if submenu %}<i class="ion-ios-arrow-right"></i>{% endif %}</a>
+                    {% if submenu %}
+                    <ul class="dropdown-menu">
+                        {% for subitem in submenu %}
+                        {% get_menu subitem.slug request.user.is_authenticated as subitem_menu %}
+                        <li {% if subitem_menu %} class="dropdown magz-dropdown" {% endif %}><a
+                                href="{{ subitem.url }}">{{ subitem.title }} {% if subitem_menu %}<i
+                                    class="ion-ios-arrow-right"></i>{% endif %}</a>
+                            {% if subitem_menu %}
+                            <ul class="dropdown-menu">
+                                {% for minisubitem in subitem_menu %}
+                                <li><a href="{{ minisubitem.url }}">{{ minisubitem.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <li class="dropdown magz-dropdown">
+                    <a href="#">
+                        My
+                        {% if current_site and current_site.site_name %}{{ current_site.site_name }}{% else %}{{ "Account" }}{% endif %}
+                        <i class="ion-ios-arrow-right"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'account_profile' %}"><i class="icon ion-person"></i> My Account</a>
+                        </li>
+                        <li><a href="{% url 'favourite_articles' %}"><i class="icon ion-heart"></i> Favorites</a></li>
+                        <li><a href="{% url 'my_comments' %}"><i class="icon ion-chatbox"></i> Comments</a></li>
+                        <li><a href="{% url 'account_change_password' %}"><i class="icon ion-key"></i> Change
+                                Password</a></li>
+                        <li><a href="#"><i class="icon ion-settings"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url 'account_logout' %}"><i class="icon ion-log-out"></i> Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

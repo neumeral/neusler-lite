@@ -1,0 +1,49 @@
+{% load cms_tags wagtailimages_tags static %}
+
+{% get_snippet "best-of-the-week" as navigation %}
+
+{% if navigation %}
+<section class="best-of-the-week">
+    <div class="container">
+        <h1>
+            <div class="text">Best Of The Week</div>
+            <div class="carousel-nav" id="best-of-the-week-nav">
+                <div class="prev">
+                    <i class="ion-ios-arrow-left"></i>
+                </div>
+                <div class="next">
+                    <i class="ion-ios-arrow-right"></i>
+                </div>
+            </div>
+        </h1>
+        <div class="owl-carousel owl-theme carousel-1">
+            {% for item in navigation %}
+            <article class="article articlecard">
+                <div class="inner">
+                    <figure>
+                        <a href="{{ item.url }}">
+                            {% if item.page.specific.image %}
+                            {% image item.page.specific.image fill-400x300 format-webp as img%}
+                            {% image item.page.specific.image fill-400x300 as img%}
+                            <picture>
+                                <source srcset="{{ webp_img.url }}" type="image/webp">
+                                <img src="{{ img.url }}">
+                            </picture>
+                            {% endif %}
+                        </a>
+                    </figure>
+                    <div class="padding">
+                        <div class="detail">
+                            <div class="category"><a href="{{ item.page.category.url }}">{{ item.page.category }}</a>
+                            </div>
+                        </div>
+                        <h2><a href="{{ item.url }}">{{ item.page.title }}</a></h2>
+                        <p>{{ item.page.specific.summary|striptags|truncatechars:150|safe }}</p>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

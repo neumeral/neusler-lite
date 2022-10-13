@@ -1,0 +1,9 @@
+<svg id="icon-ax-google-analytics" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 74 81" fill="#fff" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+    <use xlink:href="#A" x=".5" y=".5" />
+    <symbol id="A" overflow="visible">
+        <g stroke="none" fill-rule="nonzero">
+            <path d="M72.266 69.958c0 5.441-4.421 10.032-9.862 10.032h-1.19c-5.101-.68-8.841-5.271-8.671-10.372V10.449C52.373 5.348 56.113.927 61.214.077c5.441-.68 10.372 3.231 11.052 8.671v1.19 60.02z" fill="#EEE" />
+            <path d="M9.866 60.267a9.87 9.87 0 0 1 9.862 9.862 9.87 9.87 0 0 1-9.862 9.862 9.87 9.87 0 0 1-9.862-9.862c-.17-5.441 4.421-9.862 9.862-9.862zM35.88 30.172c-5.441.34-9.692 4.931-9.692 10.372v26.694c0 7.141 3.231 11.562 7.821 12.582 5.441 1.02 10.542-2.38 11.732-7.821.17-.68.17-1.36.17-2.04V40.204c0-5.441-4.421-10.032-9.862-10.032h-.17z" fill="#AAA" />
+        </g>
+    </symbol>
+</svg>
