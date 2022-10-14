@@ -48,6 +48,6 @@ jobs:
           python manage.py test
         env:
           DJANGO_SETTINGS_MODULE: neusler.settings.test
-          AXION_DATABASE_URL: postgres://postgres:postgres@localhost:5432/neuslerdb
-          AXION_ELASTIC_SEARCH: http://localhost:9200
-          AXION_REDIS_URL: redis://localhost:6379
+          NEUSLER_DATABASE_URL: postgres://postgres:postgres@localhost:5432/neuslerdb
+          NEUSLER_ELASTIC_SEARCH: http://localhost:9200
+          NEUSLER_REDIS_URL: redis://localhost:6379
