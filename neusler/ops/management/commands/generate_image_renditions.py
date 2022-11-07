@@ -14,4 +14,6 @@ class Command(BaseCommand):
 
         for image in images:
             for rendition in renditions:
+                print("Processing image -", image.title, rendition)
                 image.get_rendition(rendition)
+                image.get_rendition(f"{rendition}|format-webp")
