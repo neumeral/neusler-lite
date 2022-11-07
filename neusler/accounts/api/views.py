@@ -15,16 +15,16 @@ class TokenAPI(ObtainAuthToken):
 
             token, created = Token.objects.get_or_create(user=user)
             profile_serializer = UserSerializer(user)
-            return Response({"token": token.key, "user": profile_serializer.data})
+            return Response({"access_token": token.key, "user": profile_serializer.data})
 
         except serializers.ValidationError:
             return Response(
-                {"detail": "Invalid Credentials"},
+                {"message": "Invalid credentials"},
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
             )
         except Exception as e:
             return Response(
-                {"detail": str(e)},
+                {"message": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
@@ -42,20 +42,20 @@ class SignupAPI(APIView):
             if user:
                 token, created = Token.objects.get_or_create(user=user)
                 profile_serializer = UserSerializer(user)
-                return Response({"token": token.key, "user": profile_serializer.data})
+                return Response({"access_token": token.key, "user": profile_serializer.data})
             else:
                 return Response(
-                    {"detil": "Error Processing your request."},
+                    {"message": "Error processing your request"},
                     status=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 )
 
         except serializers.ValidationError:
             return Response(
-                {"detail": "Invalid"},
+                {"message": "Invalid"},
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
             )
         except Exception as e:
             return Response(
-                {"detail": str(e)},
+                {"message": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
