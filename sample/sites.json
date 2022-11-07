@@ -1,7 +1,1 @@
-[
-  {
-    "model": "sites.site",
-    "pk": 1,
-    "fields": { "domain": "localhost:8000", "name": "Four Axioms Example" }
-  }
-]
+[{"model": "sites.site", "pk": 1, "fields": {"domain": "localhost:8000", "name": "Neusler Ideas Example"}}]
