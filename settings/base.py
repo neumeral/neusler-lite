@@ -6,7 +6,7 @@ import dj_database_url
 
 from decouple import Csv, config
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.join(BASE_DIR, "neusler")
 
 SECRET_KEY = config(
