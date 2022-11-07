@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 import humanize
 import pytz
+
 from rest_framework.fields import Field
 from wagtail.rich_text import get_text_for_indexing
 
@@ -135,7 +136,7 @@ class CommentSerializer(Field):
                 "user_photo": comment.user.avatar.url,
                 "time": time,
             }
-        comments.append(comment_data)
+            comments.append(comment_data)
         return {
             "comments": comments,
         }

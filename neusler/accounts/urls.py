@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from .views import (
     CustomPasswordChangeView,
@@ -23,4 +23,5 @@ urlpatterns = [
     ),
     path("me/favourites/", FavouriteArticlesView.as_view(), name="favourite_articles"),
     path("me/comments/", MyCommentListView.as_view(), name="my_comments"),
+    path("", include("allauth.urls")),
 ]

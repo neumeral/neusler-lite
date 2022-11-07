@@ -31,10 +31,10 @@ class ArticleLikeAPI(APIView):
                     article.unlike_article(user)
             return Response({"liked_users_count": article.liked_users_count})
         except PostPage.DoesNotExist:
-            return Response({"detail": "Invalid Id"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response({"message": "Invalid ID"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
         except Exception as e:
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class PostCommentAPI(APIView):
@@ -56,10 +56,10 @@ class PostCommentAPI(APIView):
                 if video:
                     video.add_comment(user, comment, content_type, current_site)
             else:
-                return Response({"detail": "Invalid Content Type"})
-            return Response({"detail": "Comment Added"})
+                return Response({"message": "Invalid content type"})
+            return Response({"message": "Comment added"}, status=status.HTTP_201_CREATED)
         except PostPage.DoesNotExist:
-            return Response({"detail": "Invalid Id"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response({"message": "Invalid ID"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
         except Exception as e:
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
