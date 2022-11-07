@@ -32,7 +32,6 @@ from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtailseo.models import SeoMixin, SeoType, TwitterCard
 
-
 from ..blocks import (
     HTMLEmbedBlock,
     InArticleGoogleAdBlock,
@@ -44,7 +43,7 @@ from ..blocks import (
     InlineVideoBlock,
 )
 from ..utils import get_youtube_thumbnail_url
-from ..serializers import (
+from ..wagtail_serializers import (
     AdSerializer,
     ArticlePageField,
     AuthorSerializer,
