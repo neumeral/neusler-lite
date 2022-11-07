@@ -1,0 +1,500 @@
+{
+	"info": {
+		"_postman_id": "a3111572-319d-4221-a7d6-abcd56fd07f0",
+		"name": "Neusler Lite API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"let jsonData = pm.response.json();",
+									"let { id } = jsonData.user;",
+									"if(jsonData.access_token) pm.environment.set(\"bearer_token\", jsonData.access_token);",
+									"if(id) pm.environment.set(\"user_id\", id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"alan\",\n    \"email\": \"alan@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/accounts/signup/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"accounts",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"let jsonData = pm.response.json();",
+									"let { id } = jsonData.user;",
+									"if(jsonData.access_token) pm.environment.set(\"bearer_token\", jsonData.access_token);",
+									"if(id) pm.environment.set(\"user_id\", id);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"alan\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/accounts/token/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"accounts",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cms",
+			"item": [
+				{
+					"name": "All Pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/pages/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"pages",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/pages?type=neucms.HomePage",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"pages"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "neucms.HomePage"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category Pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/pages?type=neucms.CategoryPage",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"pages"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "neucms.CategoryPage"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Video pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/pages?type=neucms.VideoPage",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"pages"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "neucms.VideoPage"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/images/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"images",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Image Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/images/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"images",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"universe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/search/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"search",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Details Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/pages/find/?html_path=/all/how-one-supernova-measured-the-universe/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"pages",
+								"find",
+								""
+							],
+							"query": [
+								{
+									"key": "html_path",
+									"value": "/all/how-one-supernova-measured-the-universe/"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Article Details Alt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/pages/7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"pages",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "Liked Articles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/cms/favourites/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"cms",
+								"favourites",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like or Dislike Article",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"like\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/cms/articles/7/likes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"cms",
+								"articles",
+								"7",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{bearer_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": \"This is the body of the actual comment.\",\n    \"content_type\": \"article\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/cms/articles/7/comments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"cms",
+								"articles",
+								"7",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "Get Comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{bearer_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/comments/neucms-articlepage/13/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comments",
+								"neucms-articlepage",
+								"13",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment Count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{bearer_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/comments/neucms-articlepage/12/count/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comments",
+								"neucms-articlepage",
+								"12",
+								"count",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
